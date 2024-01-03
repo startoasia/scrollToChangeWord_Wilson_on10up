@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="box1"></div>
+    <div class="scrollingTitle">
+        <div class="catchcopy">Snova 精華液</div>
+    </div>
+    <div class="box2"></div>
+
+    <script>
+        //標題滾動區塊
+        const ScrollingTitle = document.querySelector('.scrollingTitle');
+
+        //滾動的標題
+        const CatchCopy = document.querySelector('.catchcopy');
+
+        // 切換的標題文字們
+        const wordData = [{
+            'txt': '只要一滴 十年如一',
+            'bg': './images/2.png'
+        }, {
+            'txt': '聖誕慶典',
+            'bg': './images/3.png'
+        }, {
+            'txt': '只要xxx元起',
+            'bg': './images/4.png'
+        }, {
+            'txt': '趕快手刀購入吧',
+            'bg': './images/5.png'
+        }];
+
+        for (let index = 0; index < wordData.length; index++) {
+
+            // 利用for迴圈將觸發線添加到容器中
+            let line = document.createElement('div');
+            line.setAttribute('class', 'line');
+            line.style.backgroundImage = `url('${wordData[index].bg}')`;
+            line.style.backgroundSize = 'cover';
+            line.style.backgroundPosition = 'center';
+
+            console.log(wordData[index].bg)
+
+            ScrollingTitle.appendChild(line);
+
+            //所有的觸發線
+            const Lines = document.querySelectorAll('.line');
+
+            //觸發線
+            const TriggerLine = Lines[index];
+
+            // 判斷要被寫入的標題文字
+            let CatchCopyEl;
+            if (index == wordData.length - 1) {
+                CatchCopyEl = wordData[index].txt;
+            } else {
+                CatchCopyEl = wordData[index].txt;
+            }
+
+            // 滾動監測 觸發滾動更換文字效果
+            window.addEventListener('scroll', () => {
+                if (window.scrollY >= TriggerLine.getBoundingClientRect().top + window.scrollY) {
+                    CatchCopy.innerText = CatchCopyEl;
+                }
+                if (window.scrollY < Lines[0].offsetTop) {
+                    CatchCopy.innerText = 'Snova 精華液';
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
